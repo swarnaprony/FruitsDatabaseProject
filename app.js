@@ -12,18 +12,24 @@ const personSchema = new mongoose.Schema({
 
 
 const fruitSchema = new mongoose.Schema ({
-  name: String,
-  rating: Number,
+  name: {
+    type: String,
+    required: [true, "No name specified"]},
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10
+  },
   review: String
 });
 
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const fruit = new Fruit ({
-  name: "Apple",
-  rating: 7,
+  rating: 10,
   review: "Soild as a fruit."
 });
+fruit.save();
 
 const Person = mongoose.model("Person", personSchema);
 
@@ -35,23 +41,23 @@ const person = new Person({
 
 //person.save();
 
-const kiwi = new Fruit({
-  name: "Kiwi",
-  score: 5,
-  review: "Not too tasty"
-});
+// const kiwi = new Fruit({
+//   name: "Kiwi",
+//   score: 5,
+//   review: "Not too tasty"
+// });
 
-const orange = new Fruit({
-  name: "Orange",
-  score: 6,
-  review: "Sour"
-});
+// const orange = new Fruit({
+//   name: "Orange",
+//   score: 6,
+//   review: "Sour"
+// });
 
-const banana = new Fruit({
-  name: "Banana",
-  score: 9,
-  review: "Sweet"
-});
+// const banana = new Fruit({
+//   name: "Banana",
+//   score: 9,
+//   review: "Sweet"
+// });
 
 
 // Fruit.insertMany([kiwi, orange, banana]).then (function(){
@@ -65,7 +71,7 @@ Fruit.find(function(err, fruits){
   fruits.forEach(function(fruit){
     console.log(fruit.name);
   });
-  
+
 mongoose.connection.close();
 });
 
