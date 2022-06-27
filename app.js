@@ -3,18 +3,11 @@ const mongoose = require('mongoose');
 
 mongoose.connect("mongodb://localhost:27017/fruitsDB");
 
-
-const personSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  age: Number
-});
-
-
-const fruitSchema = new mongoose.Schema ({
+const fruitSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "No name specified"]},
+    required: [true, "No name specified"]
+  },
   rating: {
     type: Number,
     min: 1,
@@ -25,22 +18,34 @@ const fruitSchema = new mongoose.Schema ({
 
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
-const fruit = new Fruit ({
-  name: 'Grape',
-  rating: 10,
-  review: "Soild as a fruit."
+const pinapple = new Fruit({
+  name: 'Pinapple',
+  rating: 9,
+  review: "Great."
 });
-// fruit.save();
+pinapple.save();
+
+
+const personSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  age: Number,
+  favoriteFruit: fruitSchema
+});
+
+
+
 
 const Person = mongoose.model("Person", personSchema);
 
 const person = new Person({
-  firstName: "Asif",
-  lastName: "Hossain",
-  age: 30
+  firstName: "Swarna",
+  lastName: "Sarker",
+  age: 12,
+  favoriteFruit: pinapple
 });
 
-//person.save();
+person.save();
 
 // const kiwi = new Fruit({
 //   name: "Kiwi",
@@ -78,21 +83,30 @@ const person = new Person({
 // });
 
 
-Fruit.find(function(err, fruits){
-  fruits.forEach(function(fruit){
+Fruit.find(function (err, fruits) {
+  fruits.forEach(function (fruit) {
     console.log(fruit.name);
   });
 
 
-Fruit.deleteMany({name: 'Orange'}, function(err) {
+  // Fruit.deleteMany({name: 'Orange'}, function(err) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log("Successfully Deleted");
+  //   }
+  //   });
+
+  //     // mongoose.connection.close();
+  // });
+
+
+Fruit.updateOne({ _id: "62b9c72878932feabcba099d" }, {favoriteFruit: fruitSchema }, function (err) {
   if (err) {
     console.log(err);
   } else {
-    console.log("Successfully Deleted");
+    console.log("Successfully updated");
   }
-  });
-
-    // mongoose.connection.close();
 });
 
-
+});
