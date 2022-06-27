@@ -54,8 +54,19 @@ const banana = new Fruit({
 });
 
 
-Fruit.insertMany([kiwi, orange, banana]).then (function(){
-    console.log("Successfully saved all the fruits to fruitsDB")
-  }).catch (function(error){
-    console.log(error)
+// Fruit.insertMany([kiwi, orange, banana]).then (function(){
+//     console.log("Successfully saved all the fruits to fruitsDB")
+//   }).catch (function(error){
+//     console.log(error)
+//   });
+
+
+Fruit.find(function(err, fruits){
+  fruits.forEach(function(fruit){
+    console.log(fruit.name);
   });
+  
+mongoose.connection.close();
+});
+
+
