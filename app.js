@@ -69,13 +69,13 @@ const person = new Person({
 
 
 
-Fruit.updateOne({_id: "62b9b88c6751ae7884abef4e"}, {name: 'Mango'}, function(err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Successfully updated");
-  }
-});
+// Fruit.updateOne({_id: "62b9b88c6751ae7884abef4e"}, {name: 'Mango'}, function(err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Successfully updated");
+//   }
+// });
 
 
 Fruit.find(function(err, fruits){
@@ -84,7 +84,7 @@ Fruit.find(function(err, fruits){
   });
 
 
-Fruit.deleteOne({name: 'Banana'}, function(err) {
+Fruit.deleteMany({name: 'Orange'}, function(err) {
   if (err) {
     console.log(err);
   } else {
@@ -92,6 +92,7 @@ Fruit.deleteOne({name: 'Banana'}, function(err) {
   }
   });
 
-// mongoose.connection.close();
+    // mongoose.connection.close();
 });
+
 
