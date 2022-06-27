@@ -9,27 +9,35 @@ async function executeInMongo() {
     await client.connect();
     console.log("Connected to the Database");
     const database = client.db('shopDB');
-    const movies = database.collection('movies');
+    const fruits = database.collection('fruits');
 
-    // Query for a movie that has the title 'Back to the Future'
-    const query = { title: 'Back to the Future' };
-    const movie = await movies.findOne(query);
+    // // Query for a movie that has the title 'Back to the Future'
+    // const query = { title: 'Back to the Future' };
+    // const movie = await movies.findOne(query);
 
-    assert.equal(movie.title, 'Back to the Future');
+    // assert.equal(movie.title, 'Back to the Future');
 
-    await database.collection('inventory').insertOne({
-      item: 'canvas',
-      qty: 100,
-      tags: ['cotton'],
-      size: { h: 28, w: 35.5, uom: 'cm' }
-    });
-    
+    await database.collection("fruits").insertMany([
+      {
+        name: "Apple",
+        score: 8,
+        reviiew: "Great Fruit"
+      }, {
+        name: "Orange",
+        score: 6,
+        reviiew: "Sour"
+      }, {
+        name: "Banana",
+        score: 9,
+        reviiew: "Sweet"
+      }
+    ]);
 
-    
-    console.log(movie);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
   }
 }
-executeInMongo();
+
+
+    executeInMongo();
